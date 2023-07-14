@@ -5,7 +5,7 @@ DBUser=javier
 DBPassword=javier2468
 DBRootPassword=javier2468
 # STEP 2 - Install system software - including Web and DB
-dnf install wget php-mysqlnd httpd php-fpm php-mysqli mariadb105-server php-json php php-devel cowsay -y
+sudo dnf install wget php-mysqlnd httpd php-fpm php-mysqli mariadb105-server php-json php php-devel cowsay -y
 # STEP 3 - Web and DB Servers Online - and set to startup
 systemctl enable httpd
 systemctl enable mariadb
