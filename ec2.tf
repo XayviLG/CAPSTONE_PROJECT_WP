@@ -4,7 +4,7 @@ resource "aws_instance" "deham6demos"{
     key_name = "vockey"
     vpc_security_group_ids = [aws_security_group.devVPC_sg_allow_ssh_http.id]
     subnet_id = aws_subnet.devVPC_public_subnet1.id
-    user_data = filebase64("${path.module}/userdata.sh")
+    user_data = "${file("userdata.sh")}"
     tags = {
         Name = "deham6demos"
     }
