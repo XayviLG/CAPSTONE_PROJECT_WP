@@ -73,4 +73,4 @@ resource "aws_route_table_association" "public_subnet_association" {
     route_table_id = aws_route_table.devVPC_public_route.id
     subnet_id = aws_subnet.devVPC_public_subnet1.id
     depends_on = [aws_route_table.devVPC_public_route, aws_subnet.devVPC_public_subnet1]
-}export TF_LOG=off
+}

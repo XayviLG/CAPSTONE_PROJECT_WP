@@ -1,40 +1,22 @@
-#!/bin/bash -xe
-# STEP 1 - Setpassword & DB Variables
-DBName=website
-DBUser=javier
-DBPassword=javier2468
-DBRootPassword=javier2468
-# STEP 2 - Install system software - including Web and DB
-sudo dnf install wget php-mysqlnd httpd php-fpm php-mysqli mariadb105-server php-json php php-devel cowsay -y
-# STEP 3 - Web and DB Servers Online - and set to startup
-systemctl enable httpd
-systemctl enable mariadb
-systemctl start httpd
-systemctl start mariadb
-# STEP 4 - Set Mariadb Root Password
-mysqladmin -u root password $DBRootPassword
-# STEP 5 - Install Wordpress
-wget http://wordpress.org/latest.tar.gz -P /var/www/html
+#! /bin/bash
+
+sudo yum update -y
+sudo yum install -y httpd php mysql mysql-server
+sudo service httpd start
+sudo chkconfig httpd on
+sudo chmod 777 /var/www
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+sudo chmod 777 /var/www/html
+
+sudo mysql -e "CREATE DATABASE webserver /*\!40100 DEFAULT CHARACTER SET utf8 */;"
+sudo mysql -e "CREATE USER Javier@localhost IDENTIFIED BY 'javier2468';"
+sudo mysql -e "GRANT ALL PRIVILEGES ON mydb.* TO 'Javier'@'localhost';"
+sudo mysql -e "FLUSH PRIVILEGES;"
+
+curl -LO https://wordpress.org/latest.zip
+sudo mv latest.zip /var/www/html
 cd /var/www/html
-tar -zxvf latest.tar.gz
-cp -rvf wordpress/* .
-rm -R wordpress
-rm latest.tar.gz
-# STEP 6 - Configure Wordpress
-cp ./wp-config-sample.php ./wp-config.php
-sed -i "s/'database_name_here'/'$DBName'/g" wp-config.php
-sed -i "s/'username_here'/'$DBUser'/g" wp-config.php
-sed -i "s/'password_here'/'$DBPassword'/g" wp-config.php
-# Step 6a - permissions
-usermod -a -G apache ec2-user
-chown -R ec2-user:apache /var/www
-chmod 2775 /var/www
-find /var/www -type d -exec chmod 2775 {} \;
-find /var/www -type f -exec chmod 0664 {} \;
-# STEP 7 Create Wordpress DB
-echo "CREATE DATABASE $DBName;" >> /tmp/db.setup
-echo "CREATE USER '$DBUser'@'localhost' IDENTIFIED BY '$DBPassword';" >> /tmp/db.setup
-echo "GRANT ALL ON $DBName.* TO '$DBUser'@'localhost';" >> /tmp/db.setup
-echo "FLUSH PRIVILEGES;" >> /tmp/db.setup
-mysql -u root --password=$DBRootPassword < /tmp/db.setup
-sudo rm /tmp/db.setup
+sudo unzip latest.zip
+sudo mv -f wordpress/* ./
+sudo service httpd restartyes
