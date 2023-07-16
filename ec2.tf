@@ -1,7 +1,7 @@
 resource "aws_instance" "deham6demos"{
     ami = "ami-0ae49954dfb447966"
     instance_type = "t2.micro"
-    key_name = "cool"
+    key_name = "vockey"
     vpc_security_group_ids = [aws_security_group.devVPC_sg_allow_ssh_http.id]
     subnet_id = aws_subnet.devVPC_public_subnet1.id
     user_data = "${file("userdata.tpl")}"
