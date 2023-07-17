@@ -10,16 +10,17 @@ output "public_subnet"{
 output "security_group"{
     value = aws_security_group.devVPC_sg_allow_ssh_http.id
 }
-/*output "packer_ami"{
-    value= data.aws_ami.packeramisjenkins.id
-}
-output "aws_instance"{
-    value=aws_instance.jenkins-instance.id
-}
-For more attributes https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#attributes-reference
-output "public_ip"{
-    value = aws_instance.jenkins-instance.public_ip
-}
-output "public_dns"{
-    value = aws_instance.jenkins-instance.public_dns
-}
+
+#output "packer_ami"{
+#    value= data.aws_ami.packeramisjenkins.id
+#}
+#output "aws_instance"{
+#    value=aws_instance.jenkins-instance.id
+#}
+#For more attributes https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#attributes-reference
+#output "public_ip"{
+#    value = aws_instance.jenkins-instance.public_ip
+#}
+#output "public_dns"{
+#    value = aws_instance.jenkins-instance.public_dns
+#}
