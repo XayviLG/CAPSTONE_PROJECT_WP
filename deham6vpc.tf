@@ -10,40 +10,40 @@ resource "aws_vpc" "devVPC"{
     }
 }
 # Public subnet public CIDR block available in vars.tf and provisionersVPC
-resource "aws_subnet" "devVPC_public_subnet1"{
-    cidr_block = "10.0.1.0/28"
+resource "aws_subnet" "devVPC_public_subneta"{
+    cidr_block = "10.0.0.0/24"
     vpc_id = aws_vpc.devVPC.id
     map_public_ip_on_launch = true
     availability_zone = data.aws_availability_zones.devVPC_available.names[1]
     tags = {
-        Name = "dev_terraform_vpc_public_subnet"
+        Name = "dev_terraform_vpc_public_subneta"
     }
 }
-resource "aws_subnet" "devVPC_public_subnet2"{
-    cidr_block = "10.0.2.0/28"
-    vpc_id = aws_vpc.devVPC.id
-    map_public_ip_on_launch = true
-    availability_zone = data.aws_availability_zones.devVPC_available.names[2]
-    tags = {
-        Name = "dev_terraform_vpc_public_subnet"
-    }
-}
-resource "aws_subnet" "private_subnet1"{
-    cidr_block = "10.0.3.0/28"
+resource "aws_subnet" "private_subneta"{
+    cidr_block = "10.0.1.0/24"
     vpc_id = aws_vpc.devVPC.id
     map_public_ip_on_launch = false
     availability_zone = data.aws_availability_zones.devVPC_available.names[1]
     tags = {
-        Name = "dev_terraform_vpc_private_subnet"
+        Name = "dev_terraform_vpc_private_subneta"
     }
 }
-resource "aws_subnet" "private_subnet2"{
-    cidr_block = "10.0.4.0/28"
+resource "aws_subnet" "devVPC_public_subnetb"{
+    cidr_block = "10.0.2.0/24"
+    vpc_id = aws_vpc.devVPC.id
+    map_public_ip_on_launch = true
+    availability_zone = data.aws_availability_zones.devVPC_available.names[2]
+    tags = {
+        Name = "dev_terraform_vpc_public_subnetb"
+    }
+}
+resource "aws_subnet" "private_subnetb"{
+    cidr_block = "10.0.3.0/24"
     vpc_id = aws_vpc.devVPC.id
     map_public_ip_on_launch = false
     availability_zone = data.aws_availability_zones.devVPC_available.names[2]
     tags = {
-        Name = "dev_terraform_vpc_private_subnet"
+        Name = "dev_terraform_vpc_private_subnetb"
     }
 }
 
@@ -58,19 +58,36 @@ resource "aws_internet_gateway" "devVPC_IGW"{
     }
 }
 # Provides a resource to create a VPC routing table
-resource "aws_route_table" "devVPC_public_route"{
+resource "aws_route_table" "devVPC_public_routea"{
     vpc_id = aws_vpc.devVPC.id
     route{
         cidr_block = var.cidr_blocks
         gateway_id = aws_internet_gateway.devVPC_IGW.id
     }
     tags = {
-        Name = "dev_terraform_vpc_public_route"
+        Name = "dev_terraform_vpc_public_routea"
     }
 }
-# Provides a resource to create an association between a Public Route Table and a Public Subnet
-resource "aws_route_table_association" "public_subnet_association" {
-    route_table_id = aws_route_table.devVPC_public_route.id
-    subnet_id = aws_subnet.devVPC_public_subnet1.id
-    depends_on = [aws_route_table.devVPC_public_route, aws_subnet.devVPC_public_subnet1]
+# Provides a resource to create an association between a Public Route Table and a Public Subnet A
+resource "aws_route_table_association" "public_subnet_associationa" {
+    route_table_id = aws_route_table.devVPC_public_routea.id
+    subnet_id = aws_subnet.devVPC_public_subneta.id
+    depends_on = [aws_route_table.devVPC_public_routea, aws_subnet.devVPC_public_subneta]
+}
+# Provides a resource to create a VPC routing table
+resource "aws_route_table" "devVPC_public_routeb"{
+    vpc_id = aws_vpc.devVPC.id
+    route{
+        cidr_block = var.cidr_blocks
+        gateway_id = aws_internet_gateway.devVPC_IGW.id
+    }
+    tags = {
+        Name = "dev_terraform_vpc_public_routeb"
+    }
+}
+# Provides a resource to create an association between a Public Route Table and a Public Subnet B
+resource "aws_route_table_association" "public_subnet_associationb" {
+    route_table_id = aws_route_table.devVPC_public_routeb.id
+    subnet_id = aws_subnet.devVPC_public_subnetb.id
+    depends_on = [aws_route_table.devVPC_public_routeb, aws_subnet.devVPC_public_subnetb]
 }
