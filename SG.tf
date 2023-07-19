@@ -14,7 +14,7 @@ resource "aws_security_group_rule" "devVPC_ssh_ingress_access"{
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
-# Ingress Security Port 80 (Inbound)
+# HTTP Ingress Security Port 80 (Inbound)
 resource "aws_security_group_rule" "devVPC_http_ingress_access"{
     from_port = 80
     protocol = "tcp"
@@ -23,12 +23,12 @@ resource "aws_security_group_rule" "devVPC_http_ingress_access"{
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
-# Ingress Security Port 8080 (Inbound)
+# HTTPS Ingress Security Port 8080 (Inbound)
 resource "aws_security_group_rule" "devVPC_http8080_ingress_access"{
-    from_port = 8080
+    from_port = 443
     protocol = "tcp"
     security_group_id = aws_security_group.devVPC_sg_allow_http.id
-    to_port= 8080
+    to_port= 443
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
