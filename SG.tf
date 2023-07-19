@@ -23,7 +23,7 @@ resource "aws_security_group_rule" "devVPC_http_ingress_access"{
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
-# HTTPS Ingress Security Port 8080 (Inbound)
+# HTTPS Ingress Security Port 8080 or 443 (Inbound) Port 80 is the default port for unencrypted HTTP traffic, while Port 8080 is often used as an alternative HTTP port for web servers and applications. Port 443 is used as the default port for encrypted HTTPS traffic, which is essential for transmitting sensitive information securely.
 resource "aws_security_group_rule" "devVPC_http8080_ingress_access"{
     from_port = 443
     protocol = "tcp"

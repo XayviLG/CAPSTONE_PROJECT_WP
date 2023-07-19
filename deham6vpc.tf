@@ -80,3 +80,27 @@ resource "aws_route_table_association" "public_subnet_associationb" {
     subnet_id = aws_subnet.devVPC_public_subnetb.id
     depends_on = [aws_route_table.devVPC_public_routea, aws_subnet.devVPC_public_subnetb]
 }
+# Provides a resource to create a VPC routing table
+resource "aws_route_table" "devVPC_private_routeb"{
+    vpc_id = aws_vpc.devVPC.id
+    route{
+        cidr_block = var.cidr_blocks
+        gateway_id = aws_internet_gateway.devVPC_IGW.id
+    }
+    tags = {
+        Name = "dev_terraform_vpc_public_routeb"
+    }
+}
+# Provides a resource to create an association between a Public Route Table and a Public Subnet B
+resource "aws_route_table_association" "private_subnet_associationa" {
+    route_table_id = aws_route_table.devVPC_private_routeb.id
+    subnet_id = aws_subnet.private_subneta.id
+    depends_on = [aws_route_table.devVPC_private_routeb, aws_subnet.private_subneta]
+}
+# Provides a resource to create an association between a Public Route Table and a Public Subnet B
+resource "aws_route_table_association" "private_subnet_associationb" {
+    route_table_id = aws_route_table.devVPC_private_routeb.id
+    subnet_id = aws_subnet.private_subnetb.id
+    depends_on = [aws_route_table.devVPC_private_routeb, aws_subnet.private_subnetb]
+}
+
