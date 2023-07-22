@@ -1,4 +1,4 @@
-#Creating an AMI for AutoScaling
+#Creating an AMI for Autoscaling
 
 resource "aws_ami_from_instance" "autoami" {
   name               = "auto_scaling_ami"
