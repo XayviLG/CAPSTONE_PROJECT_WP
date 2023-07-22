@@ -22,3 +22,6 @@ variable "cidr_block_public_subnetb"{
 variable "cidr_block_private_subnetb"{
     default = "10.0.3.0/24"
 }
+
+
+#
