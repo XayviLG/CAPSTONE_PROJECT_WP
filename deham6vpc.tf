@@ -1,5 +1,5 @@
 # Query all available Availability Zone; we will use specific availability zone using index - The Availability Zones data source
-# provides access to the list of AWS availabililty zones which can be accessed by an AWS account specific to region configured in the provider.
+# provides access to the list of AWS availabililty zones which can be accessed by an AWS account specific to region configured in the provider
 data "aws_availability_zones" "devVPC_available"{}
 resource "aws_vpc" "devVPC"{
     cidr_block = "10.0.0.0/16"
