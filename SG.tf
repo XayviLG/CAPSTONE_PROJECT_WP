@@ -32,7 +32,7 @@ resource "aws_security_group_rule" "devVPC_http8080_ingress_access"{
     type = "ingress"
     cidr_blocks = [var.cidr_blocks]
 }
-# Egress Security (Outbound) - Allow all outbound traffic
+# Egress Security (Outbound) , Allow all outbound traffic
 resource "aws_security_group_rule" "devVPC_egress_access" {
     from_port   = 0
     protocol    = "-1"
