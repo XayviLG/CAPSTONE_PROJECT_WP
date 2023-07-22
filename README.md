@@ -1,4 +1,5 @@
 Challenge - Friday 14.July.2023
+
  Create terraform project to setup the infrastructure in AWS environment using sandbox environment. (Note : 20 USD limit)
    Components :
    1. VPC
@@ -14,4 +15,18 @@ Challenge - Friday 14.July.2023
       -> wordpress
    7. Security group with ingress - http only. No SSH or https
    8. By EOB, please check-in the code to github repository for review
-   9. Capture the screenshots - Wordpress blog page and share it with us
+   9. Capture the screenshots - Wordpress blog page
+_______________________________________________________________________________________________
+
+Challenge - Friday 21.July.2023
+
+***Add following new components to project..architecture***
+1) Application Load balancer 
+2) Auto Scaling group
+   
+Sample code provided here for reference:
+
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb
+
+3)Create a document with Infrastructure/Architecture diagram along with screenshots
+_______________________________________________________________________________________________
