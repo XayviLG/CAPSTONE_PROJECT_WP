@@ -1,4 +1,4 @@
-Challenge - Friday 14.July.2023
+C1_Challenge - Friday 14.July.2023
 
  Create terraform project to setup the infrastructure in AWS environment using sandbox environment. (Note : 20 USD limit)
    Components :
@@ -18,7 +18,7 @@ Challenge - Friday 14.July.2023
    9. Capture the screenshots - Wordpress blog page
 _______________________________________________________________________________________________
 
-Challenge - Friday 21.July.2023
+C2_Challenge - Friday 21.July.2023
 
 ***Add following new components to project..architecture***
 1) Application Load balancer 
