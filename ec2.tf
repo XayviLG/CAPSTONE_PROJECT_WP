@@ -12,3 +12,4 @@ resource "aws_instance" "wordpress"{
     command = "echo Instance Type=${self.instance_type},Instance ID=${self.id},Public DNS=${self.public_dns},AMI ID=${self.ami} >> allinstancedetails"
   }
 }
+#
