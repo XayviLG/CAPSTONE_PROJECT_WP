@@ -1,4 +1,4 @@
-variable "AWS_REGION"{
+/**variable "AWS_REGION"{
     default="us-west-2"
     description="AWS Region"
 }
@@ -22,6 +22,4 @@ variable "cidr_block_public_subnetb"{
 variable "cidr_block_private_subnetb"{
     default = "10.0.3.0/24"
 }
-
-
-#
+**/
