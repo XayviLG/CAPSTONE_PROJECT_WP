@@ -23,7 +23,7 @@ resource "aws_autoscaling_group" "my_AutoScalingGroup" {
   min_size                          = 2
   desired_capacity                  = 2
   vpc_zone_identifier               = [aws_subnet.my_privateSubnet_1.id, aws_subnet.my_privateSubnet_2.id]
-  target_group_arns                 = [aws_lb_target_group.target-group.arn]
+  target_group_arns                 = [aws_lb_target_group.my-target-group.arn]
   health_check_type                 = "ELB"
   health_check_grace_period         = 300
   launch_template {
