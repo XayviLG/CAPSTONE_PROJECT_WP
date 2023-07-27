@@ -1,4 +1,4 @@
-output "vpc_id"{
+/**output "vpc_id"{
     value = aws_vpc.devVPC.id   
 }
 output "aws_internet_gateway"{
@@ -16,17 +16,17 @@ output "security_group"{
 output "public_ip"{
     value = aws_instance.wordpress.public_ip
 }
-#output "packer_ami"{
-#    value= data.aws_ami.packeramisjenkins.id
-#}
-#output "aws_instance"{
-#    value=aws_instance.jenkins-instance.id
-#}
+output "packer_ami"{
+    value= data.aws_ami.packeramisjenkins.id
+}
+output "aws_instance"{
+    value=aws_instance.jenkins-instance.id
+}
 #For more attributes https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#attributes-reference
-#output "public_ip"{
-#    value = aws_instance.jenkins-instance.public_ip
-#}
-#output "public_dns"{
-#    value = aws_instance.jenkins-instance.public_dns
-#}
-#
+output "public_ip"{
+    value = aws_instance.jenkins-instance.public_ip
+}
+output "public_dns"{
+    value = aws_instance.jenkins-instance.public_dns
+}**/
+
