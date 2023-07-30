@@ -72,7 +72,7 @@ resource "aws_internet_gateway" "my_IGW"{
     }
 }
 # Routing tables
-# Provides a resource to create a VPC public routing table
+# Provides a resource to create a VPC public routing table with IGW
 resource "aws_route_table" "my_publicRouteTable"{
     vpc_id = aws_vpc.myVPC.id
     route{
@@ -83,13 +83,13 @@ resource "aws_route_table" "my_publicRouteTable"{
         Name = "cap_publicRoute"
     }
 }
-# Provides a resource to create an association between a Public Route Table and a Public Subnet A
+# Provides a resource to create an association between a Public Route Table and a Public Subnet 1
 resource "aws_route_table_association" "my_publicSubnetAssociation1" {
     route_table_id = aws_route_table.my_publicRouteTable.id
     subnet_id = aws_subnet.my_publicSubnet_1.id
     depends_on = [aws_route_table.my_publicRouteTable, aws_subnet.my_publicSubnet_1]
 }
-# Provides a resource to create an association between a Public Route Table and a Public Subnet A
+# Provides a resource to create an association between a Public Route Table and a Public Subnet 2
 resource "aws_route_table_association" "my_publicSubnetAssociation2" {
     route_table_id = aws_route_table.my_publicRouteTable.id
     subnet_id = aws_subnet.my_publicSubnet_2.id
@@ -105,7 +105,7 @@ resource "aws_eip" "my_eip" {
     Name = "cap_elastic_ip"
   }
 }
-# NAT Gateway in public subnet 1 and assigned the above created Elastic IP to it .
+# NAT Gateway in public subnet 1 and assigned the above created Elastic IP to it
 
 resource "aws_nat_gateway" "my_NatGateway" {
   allocation_id = "${aws_eip.my_eip.id}"
@@ -117,7 +117,7 @@ resource "aws_nat_gateway" "my_NatGateway" {
   }
 }
 
-#Create a Route Table in order to connect our private subnet to the NAT Gateway .
+#Create a Route Table in order to connect our private subnet to the NAT Gateway
 
 resource "aws_route_table" "my_privateRouteTable"{
     vpc_id = "${aws_vpc.myVPC.id}"
@@ -129,7 +129,7 @@ resource "aws_route_table" "my_privateRouteTable"{
         Name = "cap_privateRoute"
     }
 }
-# Associate this route table to private subnet 
+# Associate this route table to private subnet
 resource "aws_route_table_association" "my_privateSubnetAssociation1" {
     route_table_id = aws_route_table.my_privateRouteTable.id
     subnet_id = aws_subnet.my_privateSubnet_1.id
