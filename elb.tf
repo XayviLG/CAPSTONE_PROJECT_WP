@@ -29,6 +29,6 @@ resource "aws_lb_listener" "my-listener" {
   protocol                          = "HTTP"
   default_action {
     type                            = "forward"
-    target_group_arn                = aws_lb_target_group.my_target-group.arn
+    target_group_arn                = aws_lb_target_group.my-target-group.arn
   }
 }
