@@ -1,6 +1,6 @@
 resource "aws_autoscaling_notification" "autoscaling_notifications" {
   group_names = [
-    aws_autoscaling_group.nf-auto-scaling-grp.name,
+    aws_autoscaling_group.my_AutoScalingGroup.name
   ]
   notifications = [
     "autoscaling:EC2_INSTANCE_LAUNCH",
@@ -16,5 +16,5 @@ resource "aws_sns_topic" "autoscaling_updates" {
 resource "aws_sns_topic_subscription" "nf-sns-subscription" {
   topic_arn = aws_sns_topic.autoscaling_updates.arn
   protocol  = "email"
-  endpoint  = "example@email.com"
+  endpoint  = "ichbinjavi@hotmail.com"
 }
