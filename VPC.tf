@@ -11,6 +11,9 @@ resource "aws_vpc" "myVPC"{
     tags = {
         Name = "cap_vpc"
     }
+    provisioner "local-exec"{
+    command = "echo vpc ID=${self.id} >> metadata"
+  }
 }
 
 # Public subnet 1 
@@ -23,6 +26,9 @@ resource "aws_subnet" "my_publicSubnet_1"{
     tags = {
         Name = "capstone_publicSubnet_1"
     }
+    provisioner "local-exec"{
+    command = "echo Public Subnet 1 = ${self.id} >> metadata"
+  }
 }
 
 # Private Subnet 1
@@ -35,6 +41,9 @@ resource "aws_subnet" "my_privateSubnet_1"{
     tags = {
         Name = "capstone_privateSubnet_1"
     }
+    provisioner "local-exec"{
+    command = "echo Private Subnet 1 = ${self.id} >> metadata"
+  }
 }
 
 # Public subnet 2
@@ -47,6 +56,9 @@ resource "aws_subnet" "my_publicSubnet_2"{
     tags = {
         Name = "capstone_publicSubnet_2"
     }
+    provisioner "local-exec"{
+    command = "echo Public Subnet 2 = ${self.id} >> metadata"
+  }
 }
 
 # Private Subnet 2
@@ -59,6 +71,9 @@ resource "aws_subnet" "my_privateSubnet_2"{
     tags = {
         Name = "capstone_privateSubnet_2"
     }
+    provisioner "local-exec"{
+    command = "echo Private Subnet 2 = ${self.id} >> metadata"
+  }
 }
 
 # To access EC2 instance inside a Virtual Private Cloud (VPC) we need an Internet Gateway
@@ -70,6 +85,9 @@ resource "aws_internet_gateway" "my_IGW"{
     tags = {
         Name = "cap_vpc_igw"
     }
+    provisioner "local-exec"{
+    command = "echo Internet Gateway = ${self.id} >> metadata"
+  }
 }
 # Routing tables
 # Provides a resource to create a VPC public routing table with IGW
@@ -95,7 +113,7 @@ resource "aws_route_table_association" "my_publicSubnetAssociation2" {
     subnet_id = aws_subnet.my_publicSubnet_2.id
     depends_on = [aws_route_table.my_publicRouteTable, aws_subnet.my_publicSubnet_2]
 }
-# Adding NAT Gatway
+/**# Adding NAT Gatway
 # Create Elastic IP. The advantage of associating the Elastic IP address with the network interface instead of directly with the instance is that you can move all the attributes of the network interface from one instance to another in a single step.
 
 resource "aws_eip" "my_eip" {
@@ -115,16 +133,16 @@ resource "aws_nat_gateway" "my_NatGateway" {
   tags = {
     Name = "my_NatGateway"
   }
-}
+}**/
 
 #Create a Route Table in order to connect our private subnet to the NAT Gateway
 
 resource "aws_route_table" "my_privateRouteTable"{
     vpc_id = "${aws_vpc.myVPC.id}"
-    route{
-        cidr_block = "0.0.0.0/0"
-        gateway_id = "${aws_nat_gateway.my_NatGateway.id}"
-    }
+#    route{
+#       cidr_block = "0.0.0.0/0"
+#       gateway_id = "${aws_nat_gateway.my_NatGateway.id}"
+#    }
     tags = {
         Name = "cap_privateRoute"
     }
