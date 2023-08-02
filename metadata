@@ -1,0 +1,10 @@
+vpc ID=vpc-01d5d3bec0db1d665
+Private Subnet 1 = subnet-0aa9ae71e9eba8d22
+Internet Gateway = igw-00b747d8ec2b74d8d
+Private Subnet 2 = subnet-0db49cb0625f0f4c8
+Security Group ALB = sg-0e7a71577c34ee946
+Security Group MYSQL = sg-0d34f5becacdbe70b
+Security Group Bastion = sg-0481e7bffc2918310
+Security Group Autoscaling = sg-065dcebfc1b302311
+Public Subnet 1 = subnet-073aa61113b7f7abf
+Public Subnet 2 = subnet-0befb0cbc836a3a68
