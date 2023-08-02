@@ -20,7 +20,7 @@ resource "aws_instance" "my_Bastion"{
     #ami                    = data.aws_ami.nf_latest_linux_ami.id
     ami = "ami-08541bb85074a743a"
     instance_type          = "t2.micro"
-    key_name               = "cool"
+    key_name               = "vockey"
     vpc_security_group_ids = [aws_security_group.my_sg_bastion.id]
     subnet_id              = aws_subnet.my_publicSubnet_1.id
     tags = {
