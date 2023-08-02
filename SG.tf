@@ -4,7 +4,10 @@ resource "aws_security_group" "my_sg_bastion"{
     name = "my_securityGrouplatest"
     tags = {
         Name = "cap-sg-bastion"
-    }     
+    }
+    provisioner "local-exec"{
+    command = "echo Security Group Bastion = ${self.id} >> metadata"
+    }          
 }
 
 # Rules bastion - Ingress Security Port 22 (Inbound)
@@ -33,6 +36,9 @@ resource "aws_security_group" "my-alb-sg"{
         tags = {
             Name = "cap-alb-sg"
         }
+         provisioner "local-exec"{
+        command = "echo Security Group ALB = ${self.id} >> metadata"
+        } 
     }
     resource "aws_security_group_rule" "alb-sg-http-in"{
         from_port                   = 80
@@ -65,6 +71,9 @@ resource "aws_security_group" "my-autoscaling-sg"{
         tags = {
             Name = "cap-autoscaling-sg"
         }
+        provisioner "local-exec"{
+        command = "echo Security Group Autoscaling = ${self.id} >> metadata"
+        } 
     }
     resource "aws_security_group_rule" "autoscaling-sg-ssh-in"{
         from_port                   = 22
@@ -90,3 +99,40 @@ resource "aws_security_group" "my-autoscaling-sg"{
         type                        = "egress"
         cidr_blocks                 = ["0.0.0.0/0"]
     }
+
+# MYSQL Security Group
+
+    resource "aws_security_group" "cpstn-sqldb-sg"{
+        vpc_id                      = aws_vpc.myVPC.id
+        name                        = "cpstn-sqldb-sg"
+        tags = {
+            Name = "cpstn-sqldb-sg"
+        }
+        provisioner "local-exec"{
+        command = "echo Security Group MYSQL = ${self.id} >> metadata"
+        }  
+    }
+    resource "aws_security_group_rule" "mysql-sg-bastion-in"{
+        from_port                   = 3306
+        protocol                    = "tcp"
+        security_group_id           = aws_security_group.cpstn-sqldb-sg.id
+        to_port                     = 3306
+        type                        = "ingress"
+        source_security_group_id    = aws_security_group.my_sg_bastion.id
+    }
+    resource "aws_security_group_rule" "mysql-sg-autoscaling-in"{
+        from_port                   = 3306
+        protocol                    = "tcp"
+        security_group_id           = aws_security_group.cpstn-sqldb-sg.id
+        to_port                     = 3306
+        type                        = "ingress"
+        source_security_group_id    = aws_security_group.my-autoscaling-sg.id
+    }
+ /**resource "aws_security_group_rule" "mysql-sg-autoscaling-out"{
+        from_port                   = 3306
+        protocol                    = "tcp"
+        security_group_id           = aws_security_group.cpstn-sqldb-sg.id
+        to_port                     = 3306
+        type                        = "egress"
+        source_security_group_id    = aws_security_group.my-autoscaling-sg.id
+    }**/  
