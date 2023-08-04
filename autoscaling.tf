@@ -1,37 +1,43 @@
 data "aws_ami" "amzLinux" {
-    most_recent                 = true
-    owners                      = ["amazon"]
+        most_recent = true
+        owners      = ["amazon"]
     
     filter {
-        name    = "name"
-        values  = ["al2023-ami-2023*x86_64"]
+        name        = "name"
+        values      = ["al2023-ami-2023*x86_64"]
         }
 }
  locals {
-        DB      ="mydb"
-        User    ="Admin"
-        PW      ="password123"
-        host    =aws_db_instance.cpstn-sql-db.address
+        DB          = "mydb"
+        User        = "Admin"
+        PW          = "password123"
+        host        = aws_db_instance.cpstn-sql-db.address
 }
 
 #Launch Template
 
 resource "aws_launch_template" "my-launch-template" {
-  name                              = "WebserverLaunchTemplate"
-  image_id                          = data.aws_ami.amzLinux.id
-  #image_id                          = "ami-08541bb85074a743a"
-  instance_type                     = "t2.micro"
-  vpc_security_group_ids            = [aws_security_group.my-autoscaling-sg.id]
-  user_data                         = base64encode(templatefile("newuserdata.sh",{
-        DB      = local.DB
-        User    = local.User
-        PW      = local.PW
-        host    = local.host
-  }))      
+  name              = "WebserverLaunchTemplate"
+  image_id          = data.aws_ami.amzLinux.id
+  #image_id         = "ami-08541bb85074a743a"
+  instance_type     = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.my-autoscaling-sg.id]
+  user_data              = base64encode(templatefile("newuserdata.sh",{
+        DB          = local.DB
+        User        = local.User
+        PW          = local.PW
+        host        = local.host
+    })) 
+
+  #IAM profile for Labenvironment
+
+  iam_instance_profile {
+        name          =  "LabInstanceProfile"
+   }     
   tag_specifications {
         resource_type = "instance"
         tags          = {
-            Name      = "cap_autoserver"
+            Name      = "mysqlserver"
    }
   }
 }
@@ -39,18 +45,18 @@ resource "aws_launch_template" "my-launch-template" {
 #Autoscaling Group
 
 resource "aws_autoscaling_group" "my_AutoScalingGroup" {
-  name                              = "my-autoscaling-group"
-  max_size                          = 4
-  min_size                          = 2
-  desired_capacity                  = 2
+  name                      = "my-autoscaling-group"
+  max_size                  = 4
+  min_size                  = 2
+  desired_capacity          = 2
   #changed to public subnets while NATGateway is turned off 
-  vpc_zone_identifier               = [aws_subnet.my_publicSubnet_1.id, aws_subnet.my_publicSubnet_2.id]
-  target_group_arns                 = [aws_lb_target_group.my-target-group.arn]
-  health_check_type                 = "ELB"
-  health_check_grace_period         = 300
+  vpc_zone_identifier       = [aws_subnet.my_publicSubnet_1.id, aws_subnet.my_publicSubnet_2.id]
+  target_group_arns         = [aws_lb_target_group.my-target-group.arn]
+  health_check_type         = "ELB"
+  health_check_grace_period = 300
   launch_template {
-    id                = aws_launch_template.my-launch-template.id
-    version           = "$Latest"
+    id                      = aws_launch_template.my-launch-template.id
+    version                 = "$Latest"
   }
 }
 
