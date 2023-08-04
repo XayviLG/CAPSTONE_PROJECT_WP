@@ -48,3 +48,20 @@ override.tf.json
 terraform.rc
 apply.txt
 .DS_Store
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IPython
+profile_default/
+ipython_config.py
+.terraform.lock.hcl
+.terraform
+main.out
+terraform.tfstate
