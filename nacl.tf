@@ -1,4 +1,4 @@
-resource "aws_network_acl" "my_nacl" {
+/**resource "aws_network_acl" "my_nacl" {
   vpc_id = aws_vpc.myVPC.id
 
   egress {
@@ -25,5 +25,9 @@ resource "aws_network_acl" "my_nacl" {
 }
 resource "aws_network_acl_association" "my_nacl" {
   network_acl_id = aws_network_acl.my_nacl.id
-  subnet_id      = aws_subnet.my_publicSubnet_2.id
+  subnet_id      = aws_subnet.my_publicSubnet_1.id
 }
+resource "aws_network_acl_association" "my_nacl" {
+  network_acl_id = aws_network_acl.my_nacl.id
+  subnet_id      = aws_subnet.my_publicSubnet_2.id
+}**/
