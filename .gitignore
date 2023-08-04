@@ -5,6 +5,7 @@ vars.tf
 .terraform
 *.out
 terraform.tfstate
+*.log
 # Local .terraform directories
 **/.terraform/*
 # .tfstate files
