@@ -17,8 +17,8 @@ data "aws_ami" "my_latest_linux_ami" {
 
 ###Create EC2
 resource "aws_instance" "my_Bastion"{
-    #ami                    = data.aws_ami.nf_latest_linux_ami.id
-    ami = "ami-08541bb85074a743a"
+    ami                    = data.aws_ami.my_latest_linux_ami.id
+   #ami                    = "ami-08541bb85074a743a"
     instance_type          = "t2.micro"
     key_name               = "vockey"
     vpc_security_group_ids = [aws_security_group.my_sg_bastion.id]
