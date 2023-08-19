@@ -1,5 +1,5 @@
-/**resource "aws_network_acl" "my_nacl" {
-  vpc_id = aws_vpc.myVPC.id
+/**resource "aws_network_acl" "cpstn_nacl" {
+  vpc_id = aws_vpc.cpstn_vpc.id
 
   egress {
     protocol   = "tcp"
@@ -20,14 +20,14 @@
   }
 
   tags = {
-    Name = "my_nacl"
+    Name = "cpstn_nacl"
   }
 }
-resource "aws_network_acl_association" "my_nacl" {
-  network_acl_id = aws_network_acl.my_nacl.id
-  subnet_id      = aws_subnet.my_publicSubnet_1.id
+resource "aws_network_acl_association" "cpstn_nacl" {
+  network_acl_id = aws_network_acl.cpstn_nacl.id
+  subnet_id      = aws_subnet.cpstn_publicsubnet_1.id
 }
-resource "aws_network_acl_association" "my_nacl" {
-  network_acl_id = aws_network_acl.my_nacl.id
-  subnet_id      = aws_subnet.my_publicSubnet_2.id
+resource "aws_network_acl_association" "cpstn_nacl" {
+  network_acl_id = aws_network_acl.cpstn_nacl.id
+  subnet_id      = aws_subnet.cpstn_publicsubnet_2.id
 }**/
