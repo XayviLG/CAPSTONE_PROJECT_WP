@@ -65,3 +65,4 @@ ipython_config.py
 .terraform
 main.out
 terraform.tfstate
+metadata
