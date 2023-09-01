@@ -15,7 +15,7 @@ resource "aws_instance" "cpstn_Bastion"{
     ami                    = data.aws_ami.cpstn_latest_linux_ami.id
    #ami                    = "ami-08541bb85074a743a"
     instance_type          = "t2.micro"
-    key_name               = "vockey"
+    key_name               = "cool"
     vpc_security_group_ids = [aws_security_group.cpstn_sg_bastion.id]
     subnet_id              = aws_subnet.cpstn_publicsubnet_1.id
     tags = {
