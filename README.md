@@ -1,6 +1,6 @@
 Project Title : Scalable and Fault-tolerant WordPress Website on AWS
 
-Description : A turnkey solution for deploying a scalable and fault-tolerant WordPress website on AWS using Terraform, Git, and GitHub, following the Scrum methodology.
+Description : A turnkey solution for deploying a scalable and fault-tolerant WordPress website on AWS using VS Code, Terraform, Git, and GitHub, following the Scrum methodology.
 
 The solution would use the following components:
 
