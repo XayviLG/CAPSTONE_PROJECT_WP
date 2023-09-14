@@ -8,10 +8,10 @@ data "aws_ami" "amzLinux" {
         }
 }
  locals {
-        DB   = "mydb"
-        User = "Admin"
-        PW   = "password123"
-        host = aws_db_instance.cpstn-sql-db.address
+        DB                          = "mydb"
+        User                        = "Admin"
+        PW                          = "password123"
+        host                        = aws_db_instance.cpstn-sql-db.address
 }
 
 #Launch Template
@@ -32,7 +32,7 @@ resource "aws_launch_template" "cpstn-launch-template" {
   #IAM profile for Lab environment
 
   iam_instance_profile {
-        name                        =  "LabInstanceProfile"
+        name                        = "instance_role_cpstn"
    }     
   tag_specifications {
         resource_type               = "instance"
@@ -44,7 +44,7 @@ resource "aws_launch_template" "cpstn-launch-template" {
 
 #Autoscaling Group
 
-resource "aws_autoscaling_group" "cpstn_AutoScalingGroup" {
+resource "aws_autoscaling_group" "cpstn-AutoScalingGroup" {
   name                              = "cpstn-autoscaling-group"
   max_size                          = 4
   min_size                          = 2
@@ -71,5 +71,5 @@ resource "aws_autoscaling_policy" "policy" {
     }
       target_value                  = 75.0
   }
-  autoscaling_group_name            = aws_autoscaling_group.cpstn_AutoScalingGroup.name
+  autoscaling_group_name            = aws_autoscaling_group.cpstn-AutoScalingGroup.name
 }

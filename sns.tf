@@ -1,6 +1,6 @@
 resource "aws_autoscaling_notification" "autoscaling_notifications" {
     group_names      = [
-    aws_autoscaling_group.cpstn_AutoScalingGroup.name
+    aws_autoscaling_group.cpstn-AutoScalingGroup.name
   ]
   notifications      = [
     "autoscaling:EC2_INSTANCE_LAUNCH",
