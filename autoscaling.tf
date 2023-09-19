@@ -29,7 +29,7 @@ resource "aws_launch_template" "cpstn-launch-template" {
         host = local.host
     })) 
 
-  #IAM profile for Lab environment
+  #IAM profile
 
   iam_instance_profile {
         name                        = "instance_role_cpstn"
